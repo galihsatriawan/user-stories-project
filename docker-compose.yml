@@ -1,0 +1,52 @@
+version: "3.7"
+services: 
+    stories_backend:
+        container_name: stories_backend
+        image: stories_backend:latest
+        restart: always
+        build: 
+            context: ./backend/my-user-stories
+            dockerfile: Dockerfile
+        command: npm start
+        volumes: 
+            # - ./backend/my-user-stories/config:/usr/app/config
+            # - ./backend/my-user-stories/controllers:/usr/app/controllers
+            # - ./backend/my-user-stories/models:/usr/app/models
+            # - ./backend/my-user-stories/routes:/usr/app/routes
+            # - ./backend/my-user-stories/server.js:/usr/app/server.js
+            - ./backend/my-user-stories:/usr/app
+        ports: 
+            - "9000:9000"
+        depends_on: 
+            - mongo_server
+        networks: 
+            - stories_network
+    stories_frontend:
+        container_name: stories_frontend
+        image: stories_frontend:latest
+        restart: always
+        volumes: 
+            - ./frontend/the-user-story:/usr/app
+        ports: 
+            - "3000:3000"
+        build: 
+            context: ./frontend/the-user-story/
+            dockerfile: Dockerfile
+        command: npm start
+        depends_on: 
+            - mongo_server
+        networks: 
+            - stories_network
+    mongo_server:
+        container_name: mongo_server
+        restart: always
+        image: mongo:latest
+        volumes: 
+            - ./data/db:/data/db
+        ports: 
+            - "27017:27017"
+        networks: 
+            - stories_network
+networks: 
+    stories_network:
+        name: stories_network
