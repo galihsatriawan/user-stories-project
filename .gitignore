@@ -1,2 +1,6 @@
 data/*
-.gitmodules_temp
+.gitmodules
+SIRENO
+
+#remove config backend
+backend/my-user-stories/config/*
