@@ -79,9 +79,24 @@ exports.getComplete = (req,res)=>{
             {
                 $lookup:{
                     from : "TestAcceptances",
-                    localField : "storyId",
-                    foreignField : "userStoryId",
+                    // localField : "storyId",
+                    // foreignField : "userStoryId",
+                    /**
+                     * Join Manual
+                     */
+                    let:{storyId:'$storyId'},
+                    pipeline:[
+                        {
+                            $match:{
+                                $expr:{$eq:["$userStoryId","$$storyId"]}
+                            }
+                        },
+                        {
+                            $sort:{index:1}
+                        }
+                    ],
                     as : "testAcceptance"
+                    
                 }
             },
             {
