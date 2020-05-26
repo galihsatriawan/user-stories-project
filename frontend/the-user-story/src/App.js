@@ -8,7 +8,8 @@ class App extends Component{
     userStories : []
   }
   callAPI(){
-    fetch("http://127.0.0.1:9000/api/user_stories")
+    var url = process.env.BACKEND_URL || "http://127.0.0.1:9000/api/user_stories"
+    fetch(url)
         .then(res => res.json())
         .then(data => this.setState({userStories: data.data}))
         .catch(console.log);

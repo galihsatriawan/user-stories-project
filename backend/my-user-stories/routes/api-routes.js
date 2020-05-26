@@ -4,7 +4,7 @@ var router = express.Router();
 router.get("/",(req,res)=>{
     res.json({
         "status":"Success",
-        "message":"Welcome to our API"
+        "message":"Welcome to Our API, it's still under renovation"
     });
 });
 //Import User Story Controller

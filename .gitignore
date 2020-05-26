@@ -3,5 +3,5 @@ data/*
 SIRENO
 
 #remove config backend
-backend/my-user-stories/config/*
+# backend/my-user-stories/config/*
 documents
